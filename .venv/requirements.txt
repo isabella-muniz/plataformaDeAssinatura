@@ -1,4 +1,0 @@
-django
-uvicorn[standard]
-ptpython
-docopt
