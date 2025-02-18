@@ -12,7 +12,7 @@ LAST_NAME_MAXLEN = 160
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, verbose_name='email address')
-    firt_name = models.CharField(max_length=FIRT_NAME_MAXLEN)
+    first_name = models.CharField(max_length=FIRT_NAME_MAXLEN)
     last_name = models.CharField(max_length=LAST_NAME_MAXLEN)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
