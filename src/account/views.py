@@ -44,12 +44,13 @@ async def login(request: HttpRequest) -> HttpResponse:
                     'Thanks for returning, Writer!' if user.is_writer else
                     'Welcome back, Client'
                 )
-            return HttpResponse('Utilizador registrado')
+            return HttpResponse(msg)
     else:
         form = CustomAuthenticationForm()
 
     context = {'login_form': form}
     return await arender(request, 'account/login.html', context)
+#:
 
 
 
