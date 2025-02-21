@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-from .forms import CustomUserCreationForm
+import django.contrib.auth as  auth
+
+from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from common.django_utils import arender
 from .models import CustomUser
 
@@ -24,6 +26,31 @@ async def register(request: HttpRequest) -> HttpResponse:
 #:
 
 async def login(request: HttpRequest) -> HttpResponse:
-    return render(request, 'account/login.html')
-#:
+    if request.method == 'POST':
+        form = CustomAuthenticationForm(request.POST, data = request.POST)
+        if await form.ais_valid():
+            email = request.POST['username']
+            passwd = request.POST['password']
+            user: CustomUser | None = await auth.aauthenticate(
+                request,
+                username=email,
+                password = passwd,
+                # type: ignore
+            )
+
+            if user:
+                await auth.alogin(request, user)
+                msg = (
+                    'Thanks for returning, Writer!' if user.is_writer else
+                    'Welcome back, Client'
+                )
+            return HttpResponse('Utilizador registrado')
+    else:
+        form = CustomAuthenticationForm()
+
+    context = {'login_form': form}
+    return await arender(request, 'account/login.html', context)
+
+
+
 

@@ -19,5 +19,6 @@ class CustomUserCreationForm(UserCreationForm, AsyncModelFormMixin):
     #:
 #:
 
-async def ais_valid(self):
+class CustomAuthenticationForm(AuthenticationForm, AsyncFormMixin):
     pass
+#:
