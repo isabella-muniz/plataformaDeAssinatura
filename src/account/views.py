@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-
-from asgiref.sync import sync_to_async, async_to_sync
+from .forms import CustomUserCreationForm
+from common.django_utils import arender
+from .models import CustomUser
 
 # Create your views here.
-from .forms import CustomUserCreationForm
-from .models import CustomUser
 
 async def home(request: HttpRequest) -> HttpResponse:
     return render(request, 'account/home.html')
@@ -21,11 +20,10 @@ async def register(request: HttpRequest) -> HttpResponse:
         form = CustomUserCreationForm()
 
     context = {'register_form': form}
-    return render(request, 'account/register.html', context)
+    return await arender(request, 'account/register.html', context)
 #:
 
 async def login(request: HttpRequest) -> HttpResponse:
     return render(request, 'account/login.html')
-
 #:
 

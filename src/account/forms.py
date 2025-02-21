@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .models import CustomUser
 from common.django_utils import AsyncFormMixin, AsyncModelFormMixin
 
-class CustomUserCreationForm(UserCreationForm, AsyncFormMixin):
+class CustomUserCreationForm(UserCreationForm, AsyncModelFormMixin):
 
     class Meta:
         model = CustomUser
