@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 
+from asgiref.sync import sync_to_async, async_to_sync
+
 # Create your views here.
 from .forms import CustomUserCreationForm
 from .models import CustomUser
@@ -12,8 +14,8 @@ async def home(request: HttpRequest) -> HttpResponse:
 async def register(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if await form.ais_valid():
+            await form.asave()
             return HttpResponse('Utilizador registrado')
     else:
         form = CustomUserCreationForm()
